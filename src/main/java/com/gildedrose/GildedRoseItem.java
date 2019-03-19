@@ -1,25 +1,20 @@
 package com.gildedrose;
 
 public enum GildedRoseItem {
-    BRIE("Aged Brie" ,+1),
-    SULFURAS("Sulfuras",0,80, true),
-    BACKSTAGE_PASSES("Backstage passes" , 0),
-    CONJURED("Conjured",-2);
+    BRIE("Aged Brie" ),
+    SULFURAS("Sulfuras",80),
+    BACKSTAGE_PASSES("Backstage passes" ),
+    CONJURED("Conjured");
 
     private String name;
     private int maxmumQuality = 50;
-    private boolean legedaryItem = false;
-    private int multiplicationOfQuality;
 
-    GildedRoseItem(String name, int multiplicationOfQuality, int maxmumQuality, boolean legedaryItem){
+    GildedRoseItem(String name, int maxmumQuality){
         this.name = name;
         this.maxmumQuality= maxmumQuality;
-        this.multiplicationOfQuality = multiplicationOfQuality;
-        this.legedaryItem = legedaryItem;
     }
-    GildedRoseItem(String name, int multiplicationOfQuality){
+    GildedRoseItem(String name){
         this.name = name;
-        this.multiplicationOfQuality  = multiplicationOfQuality;
     }
 
     public String getName() {
@@ -30,11 +25,4 @@ public enum GildedRoseItem {
         return maxmumQuality;
     }
 
-    public boolean isLegedaryItem() {
-        return legedaryItem;
-    }
-
-    public int getMultiplicationOfQuality() {
-        return multiplicationOfQuality;
-    }
 }

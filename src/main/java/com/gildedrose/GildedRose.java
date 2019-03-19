@@ -17,8 +17,12 @@ class GildedRose {
 
     public void updateQuality() {
         Stream.of(items).forEach(item -> {
-            updateSellInOfEachItem(item);
-            updateQualityOfEachItem(item);
+            if(SULFURAS.getName().equals(item.getName())){
+                item.setQuality(80);
+            } else {
+                updateSellInOfEachItem(item);
+                updateQualityOfEachItem(item);
+            }
         });
     }
 
@@ -34,10 +38,18 @@ class GildedRose {
         } else {
             if (item.getQuality() > 0) {
                 increaseQualityBy(item, -1);
-                if (item.getSellIn() < 0 || CONJURED.getName().equals(item.getName())) {
+                updateConjuredItem(item);
+                if (item.getSellIn() < 0 ) {
                     increaseQualityBy(item, -1);
+                    updateConjuredItem(item);
                 }
             }
+        }
+    }
+
+    private void updateConjuredItem(Item item) {
+        if (CONJURED.getName().equals(item.getName())) {
+            increaseQualityBy(item, -1);
         }
     }
 
@@ -49,14 +61,17 @@ class GildedRose {
 
     private void updateItemBackStagePasses(Item item) {
         if (BACKSTAGE_PASSES.getMaxmumQuality() > item.getQuality()) {
-            if (item.getSellIn() < 10) {
-                increaseQualityBy(item, 2);
+            if (item.getSellIn() <= 0) {
+                item.setQuality(0);
             } else if (item.getSellIn() < 5) {
                 increaseQualityBy(item, 3);
-            } else if (item.getSellIn() <= 0) {
-                item.setQuality(0);
+            } else if (item.getSellIn() < 10){
+                increaseQualityBy(item, 2);
             } else {
                 increaseQualityBy(item, 1);
+            }
+            if(BACKSTAGE_PASSES.getMaxmumQuality() < item.getQuality()){
+                item.setQuality(BACKSTAGE_PASSES.getMaxmumQuality());
             }
         }
     }
